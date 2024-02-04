@@ -46,16 +46,15 @@ public class AuthController {
 	public ResponseEntity<?> login(@RequestBody JwtRequest request) {
 		this.doAuthemtication(request.getMobileNumber(), request.getPassword());
 		User user = this.userRepo.findByMobileNumber(request.getMobileNumber());
-	
-			UserDetails userDetails = userDetailsService.loadUserByUsername(request.getMobileNumber());
-			String token = this.helper.generateToken(userDetails);
 
-			User user1 = this.userRepo.findByMobileNumber(request.getMobileNumber());
-			JwtResponse response = JwtResponse.builder().username(userDetails.getUsername()).jwtToken(token).build();
+		UserDetails userDetails = userDetailsService.loadUserByUsername(request.getMobileNumber());
+		String token = this.helper.generateToken(userDetails);
 
-			return new ResponseEntity<>(response, HttpStatus.OK);
-		}
-	
+		User user1 = this.userRepo.findByMobileNumber(request.getMobileNumber());
+		JwtResponse response = JwtResponse.builder().username(userDetails.getUsername()).jwtToken(token).build();
+
+		return new ResponseEntity<>(response, HttpStatus.OK);
+	}
 
 	private void doAuthemtication(String mobileNumber, String password) {
 		UsernamePasswordAuthenticationToken authentication = new UsernamePasswordAuthenticationToken(mobileNumber,
@@ -66,6 +65,7 @@ public class AuthController {
 			throw new BadCredentialsException("Invalid UserName or Password !!");
 		}
 	}
+
 	@ExceptionHandler(BadCredentialsException.class)
 	public String exceptionHandler() {
 		return "Credentials Invalid !!";

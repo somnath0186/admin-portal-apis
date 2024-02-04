@@ -1,6 +1,5 @@
 package com.example.demo.controller;
 
-
 import org.springframework.web.bind.annotation.RestController;
 
 import com.example.demo.payload.AdminDto;
@@ -25,34 +24,33 @@ import org.springframework.web.bind.annotation.RequestMapping;
 @RestController
 @RequestMapping("/api/admin")
 public class AdminController {
-	
+
 	@Autowired
 	private AdminService adminService;
-	
+
 	@PostMapping("/register")
 	public ResponseEntity<AdminDto> registerAdmin(@RequestBody AdminDto userDto) {
-	AdminDto saveUser =this.adminService.registerAdmin(userDto);
-		
-		return new ResponseEntity<AdminDto>(saveUser,HttpStatus.CREATED);
+		AdminDto saveUser = this.adminService.registerAdmin(userDto);
+
+		return new ResponseEntity<AdminDto>(saveUser, HttpStatus.CREATED);
 	}
-	
+
 	@PutMapping("/update_admin/{adminId}")
-	private ResponseEntity<AdminDto>updateAdmin(@RequestBody AdminDto userDto,@PathVariable Integer adminId){
-	AdminDto updateUser	=this.adminService.updateAdmin(userDto, adminId);
-	return new ResponseEntity<AdminDto>(updateUser,HttpStatus.OK);
+	private ResponseEntity<AdminDto> updateAdmin(@RequestBody AdminDto userDto, @PathVariable Integer adminId) {
+		AdminDto updateUser = this.adminService.updateAdmin(userDto, adminId);
+		return new ResponseEntity<AdminDto>(updateUser, HttpStatus.OK);
 	}
-	
+
 	@GetMapping("/{adminId}")
-	private ResponseEntity<AdminDto>getsingleAdmin(@PathVariable Integer adminId){
-	AdminDto foundUser	=this.adminService.getAdminById(adminId);
-	return new ResponseEntity<AdminDto>(foundUser,HttpStatus.OK);
+	private ResponseEntity<AdminDto> getsingleAdmin(@PathVariable Integer adminId) {
+		AdminDto foundUser = this.adminService.getAdminById(adminId);
+		return new ResponseEntity<AdminDto>(foundUser, HttpStatus.OK);
 	}
-	
-	
+
 	@GetMapping("/all")
-	private ResponseEntity<List<AdminDto>> getAllAdmin(){
-List<AdminDto> userList	=	this.adminService.getAllAdmins();
-return new ResponseEntity<List<AdminDto>>(userList,HttpStatus.OK);
+	private ResponseEntity<List<AdminDto>> getAllAdmin() {
+		List<AdminDto> userList = this.adminService.getAllAdmins();
+		return new ResponseEntity<List<AdminDto>>(userList, HttpStatus.OK);
 	}
 
 }

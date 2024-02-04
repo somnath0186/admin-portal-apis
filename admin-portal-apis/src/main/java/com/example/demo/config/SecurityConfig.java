@@ -37,7 +37,7 @@ public class SecurityConfig {
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
 
     	http.csrf(csrf->csrf.disable()).cors(corp->corp.disable()).authorizeHttpRequests(auth->auth
-    			.requestMatchers("/api/auth/**")
+    			.requestMatchers("/api/auth/**","/api/gameManagement/**")
     			.permitAll().requestMatchers(HttpMethod.OPTIONS,"/**").permitAll()
     			.anyRequest().authenticated()
     			).exceptionHandling(ex->ex.authenticationEntryPoint(point)).sessionManagement(session->
